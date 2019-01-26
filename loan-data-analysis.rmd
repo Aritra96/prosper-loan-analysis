@@ -1,4 +1,9 @@
-Analyzing Prosper's Loan Data by Aritra Chattaraj
+---
+title: "Analyzing Loan Data - Prosper Funding LLC"
+author: "Aritra Chattaraj"
+date: "January 26, 2019"
+output: html_document
+---
 ========================================================
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
@@ -12,16 +17,30 @@ library(ggplot2)
 
 ```
 
+# Introduction - Prosper
+> Prosper Marketplace, Inc. is a San Francisco, California-based company in the peer-to-peer lending industry. Prosper Funding LLC, one of its subsidiaries, operates Prosper.com, a website where individuals can either invest in personal loans or request to borrow money.
+
+> Prosper Marketplace is America's first peer-to-peer lending marketplace, with over $7 billion in funded loans. Borrowers request personal loans on Prosper and investors (individual or institutional) can fund anywhere from $2,000 to $35,000 per loan request. Investors can consider borrowers' credit scores, ratings, and histories and the category of the loan. Prosper handles the servicing of the loan and collects and distributes borrower payments and interest back to the loan investors.
+
+> Prosper verifies borrowers' identities and select personal data before funding loans and manages all stages of loan servicing. Prosper's unsecured personal loans are fully amortized over a period of three or five years, with no pre-payment penalties. Prosper generates revenue by collecting a one-time fee on funded loans from borrowers and assessing an annual loan servicing fee to investors.
+
+> Prosper has provided an increasing amount of information about prospective borrowers over time, while also making various changes to its credit policy. Prior to its 2008 'quiet period' and 2009 SEC registration, the company provided "Credit Grades" and other credit information about its prospective lenders. Following the SEC registration, the company created a new model that determined "Prosper Ratings" instead. Additionally, new prospective borrowers were required to have an FICO 8 credit score of at least 640, while returning borrowers only need a score of 600 to request a loan.
+
+# Project Brief
+> This project analyzes about 114,000 observations and 10 of the 81 variables in this data set. The data set contains information of about 114,000 individuals (anonymized, of course) across 81 parameters. 
+
+> There are three major sections in this project, each providing a piece for the final assessment. These sections are - Univariate Analysis, Bivariate Analysis and Multivariate Analysis. At the end, the final summary explains the results of our analyses.
+
+
 ```{r}
 # Load the Data
 
 data <- read_csv("C:/Users/Endurance II/Desktop/prosper-loan-analysis/prosperLoanData.csv")
 
-```
+# View the data
+head(data, n = 10)
 
-> **Tip**: Before you create any plots, it is a good idea to provide a short
-introduction into the dataset that you are planning to explore. Replace this
-quoted text with that general information!
+```
 
 # Univariate Plots Section
 

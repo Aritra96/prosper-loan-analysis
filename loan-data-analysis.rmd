@@ -17,7 +17,7 @@ library(ggplot2)
 
 ```
 
-# Introduction - Prosper
+## Introduction - Prosper
 > Prosper Marketplace, Inc. is a San Francisco, California-based company in the peer-to-peer lending industry. Prosper Funding LLC, one of its subsidiaries, operates Prosper.com, a website where individuals can either invest in personal loans or request to borrow money.
 
 > Prosper Marketplace is America's first peer-to-peer lending marketplace, with over $7 billion in funded loans. Borrowers request personal loans on Prosper and investors (individual or institutional) can fund anywhere from $2,000 to $35,000 per loan request. Investors can consider borrowers' credit scores, ratings, and histories and the category of the loan. Prosper handles the servicing of the loan and collects and distributes borrower payments and interest back to the loan investors.
@@ -26,10 +26,13 @@ library(ggplot2)
 
 > Prosper has provided an increasing amount of information about prospective borrowers over time, while also making various changes to its credit policy. Prior to its 2008 'quiet period' and 2009 SEC registration, the company provided "Credit Grades" and other credit information about its prospective lenders. Following the SEC registration, the company created a new model that determined "Prosper Ratings" instead. Additionally, new prospective borrowers were required to have an FICO 8 credit score of at least 640, while returning borrowers only need a score of 600 to request a loan.
 
-# Project Brief
-> This project analyzes about 114,000 observations and 10 of the 81 variables in this data set. The data set contains information of about 114,000 individuals (anonymized, of course) across 81 parameters. 
+## Project Brief
+> This project analyzes about 114,000 observations and 12 of the 81 variables in this data set. The data set contains information of about 114,000 individuals (anonymized, of course) across 81 parameters. 
 
 > There are three major sections in this project, each providing a piece for the final assessment. These sections are - Univariate Analysis, Bivariate Analysis and Multivariate Analysis. At the end, the final summary explains the results of our analyses.
+
+## Variables of Interest
+> The 12 variables of interest chosen out of the 81, for the purpose of this project, are: LoanStatus, ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatus, Occupation, EmploymentStatusDuration, IsBorrowerHomeowner, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount. 
 
 
 ```{r}
@@ -42,16 +45,34 @@ head(data, n = 10)
 
 ```
 
-# Univariate Plots Section
+## Univariate Plots Section
 
-> **Tip**: In this section, you should perform some preliminary exploration of
-your dataset. Run some summaries of the data and create univariate plots to
-understand the structure of the individual variables in your dataset. Don't
-forget to add a comment after each plot or closely-related group of plots!
-There should be multiple code chunks and text sections; the first one below is
-just to help you get started.
+> This section explores univariate characteristics in our data through multiple univariate plots.
+
+> The dataset is first subsetted to include only the 12 variables of importance prior to any further analysis/plots.
+
+### Subsetting the data
 
 ```{r echo=FALSE, Univariate_Plots}
+
+# Subsetting original df into new variable sub_data
+
+sub_data <- data[c('LoanStatus', 'ProsperScore', 'BorrowerAPR', 'BorrowerRate', 'EmploymentStatus', 'Occupation', 'EmploymentStatusDuration', 'IsBorrowerHomeowner', 'StatedMonthlyIncome', 'MonthlyLoanPayment', 'DebtToIncomeRatio', 'LoanOriginalAmount')]
+
+# Viewing subsetted data
+
+head(sub_data, n = 20)
+
+```
+
+> The data has been successfully subsetted and contains all the observations and only the seleted 12 variables.
+
+### Plots - Univariate
+> LoanOriginalAmount - let us find out the distribution for loan amounts.
+
+```{r echo=FALSE}
+
+qplot(x = LoanOriginalAmount, data = sub_data)
 
 ```
 

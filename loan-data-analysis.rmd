@@ -32,7 +32,7 @@ library(ggplot2)
 > There are three major sections in this project, each providing a piece for the final assessment. These sections are - Univariate Analysis, Bivariate Analysis and Multivariate Analysis. At the end, the final summary explains the results of our analyses.
 
 ## Variables of Interest
-> The 12 variables of interest chosen out of the 81, for the purpose of this project, are: LoanStatus, ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatus, Occupation, EmploymentStatusDuration, IsBorrowerHomeowner, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount. 
+> The 12 variables of interest chosen out of the 81, for the purpose of this project, are: **LoanStatus, ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatus, Occupation, EmploymentStatusDuration, IsBorrowerHomeowner, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount.** 
 
 
 ```{r}
@@ -68,11 +68,28 @@ head(sub_data, n = 20)
 > The data has been successfully subsetted and contains all the observations and only the seleted 12 variables.
 
 ### Plots - Univariate
-> LoanOriginalAmount - let us find out the distribution for loan amounts.
+
+#### Summary of Data
+> Prior to some plots, let us check out the characteristics of the chosen variables in our data subset.
 
 ```{r echo=FALSE}
 
-qplot(x = LoanOriginalAmount, data = sub_data)
+summary(sub_data)
+
+```
+
+> The summary reveals a number of interesting points about our data - there are 8 numerical variables (ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatusDuration, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount); there are 3 categorical variables (LoanStatus, Occupation, EmploymentStatus); there is 1 logical (dichotomous i.e. Y/N or True/False in this case) variable (IsBorrowerHomeowner).
+
+> There are a number of missing or NaN variables with the highest number being 29084 (ProsperScore) and lowest non-zero being 25 (BorrowerAPR). This is something to keep in mind to decide whether we want to omit the observations or impute them and what best method for imputation should be chosen at the time of modeling.
+
+> A number of other observations in the summary is, perhaps, better explained through the following plots.
+
+#### Univariate Plot 1 - ProsperScore
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$ProsperScore)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - ProsperScore", x = "Scores", y = "Frequency") 
 
 ```
 

@@ -93,6 +93,30 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore)) +
 
 ```
 
+> The histogram reveals a trend in the ProsperScore where the mean is centered around 4-8 on the scale. Most of the observations or individuals have a Prosper Score in the brackets of 4, 6 or 8 and the data is normally distributed with a slight right-skew and leptokurtic tendency.
+
+#### Univariate Plot 2 - BorrowerAPR
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerAPR", x = "Values", y = "Frequency") 
+
+```
+
+> The BorrowerAPR reveals an almost normally distributed characteristic with an unusually large number of observations between 0.3 - 0.4 (almost like a bimodal distribution). The data is definitely right skewed and leptokurtic.
+
+#### Univariate Plot 3 - BorrowerRate
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerRate", x = "Values", y = "Frequency") 
+
+```
+
+> BorrowerRate exhibits very similar characteristics as our BorrowerAPR.
+
 > **Tip**: Make sure that you leave a blank line between the start / end of
 each code block and the end / start of your Markdown text so that it is
 formatted nicely in the knitted text. Note as well that text on consecutive

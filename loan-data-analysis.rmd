@@ -100,7 +100,7 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerAPR", x = "Values", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerAPR", x = "Rates", y = "Frequency") 
 
 ```
 
@@ -111,11 +111,34 @@ ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerRate", x = "Values", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerRate", x = "Rates", y = "Frequency") 
 
 ```
 
 > BorrowerRate exhibits very similar characteristics as our BorrowerAPR.
+
+#### Univariate Plot 4 - EmploymentStatusDuration
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$EmploymentStatusDuration)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - EmploymentStatusDuration", x = "Duration", y = "Frequency") 
+
+```
+
+> Employment Status Duration represents a power-law distribution of the data which is heavily right-skewed. This implies that a large number of Prosper customers have an employment duration of 2-3 years whereas there are outliers such as 44 years and more.
+
+#### Univariate Plot 5 - StatedMonthlyIncome (Limited to $50,000 per month)
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$StatedMonthlyIncome)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - StatedMonthlyIncome", x = "Monthly Income", y = "Frequency") +
+  xlim(0, 50000)
+
+```
+
+> Shows a power-law distribution with a heavy right-skew. Majority of the income earners make about $4,000 - $6,000 a month.
 
 > **Tip**: Make sure that you leave a blank line between the start / end of
 each code block and the end / start of your Markdown text so that it is

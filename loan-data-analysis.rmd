@@ -140,6 +140,41 @@ ggplot(data = sub_data, aes(sub_data$StatedMonthlyIncome)) +
 
 > Shows a power-law distribution with a heavy right-skew. Majority of the income earners make about $4,000 - $6,000 a month.
 
+#### Univariate Plot 6 - MonthlyLoanPayment 
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment)) + 
+  geom_histogram(col = "blue", bins = 40, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - MonthlyLoanPayment", x = "Monthly Payment", y = "Frequency") 
+
+```
+
+> Shows a power-law distribution with a heavy right-skew, similar to our last plot. Majority of the monthly payments are in the range $150 - $250. 
+
+#### Univariate Plot 7 - DebtToIncomeRatio 
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$DebtToIncomeRatio)) + 
+  geom_histogram(col = "blue", bins = 30, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - DebtToIncomeRatio", x = "DTI Ratio", y = "Frequency") 
+
+```
+
+> Follows a power-law distribution, with right-skew, similar to some of our previous plots. The Debt to Income ratio, for a majority of people, is (fortunately) less than 1 and around 0.5. There area few outliers at DTI of 2.5.
+
+#### Univariate Plot 8 - LoanOriginalAmount
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount)) + 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - LoanOriginalAmount", x = "Loan Amount", y = "Frequency") 
+
+```
+
+> The distribution is right-skewed with a majority of the amount falling in the buckets of ~$50,000, ~$100,000, ~$150,000. Interesting to note here also is that the majority of the loans taken, that are over ~$100,000, are in increments of ~$50,000, such as $150,000 or $200,000 or $250,000. 
+
+
+
 > **Tip**: Make sure that you leave a blank line between the start / end of
 each code block and the end / start of your Markdown text so that it is
 formatted nicely in the knitted text. Note as well that text on consecutive

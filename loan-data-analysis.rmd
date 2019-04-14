@@ -38,7 +38,7 @@ library(ggplot2)
 ```{r}
 # Load the Data
 
-data <- read_csv("C:/Users/Endurance II/Desktop/prosper-loan-analysis/prosperLoanData.csv")
+data <- read_csv("C:/Users/Endurance-III/Desktop/prosper-loan-analysis/prosperLoanData.csv")
 
 # View the data
 head(data, n = 10)
@@ -89,7 +89,8 @@ summary(sub_data)
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$ProsperScore)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - ProsperScore", x = "Scores", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - ProsperScore", x = "Scores", y = "Frequency") 
 
 ```
 
@@ -100,7 +101,8 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerAPR", x = "Rates", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - BorrowerAPR", x = "Rates", y = "Frequency") 
 
 ```
 
@@ -111,7 +113,8 @@ ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - BorrowerRate", x = "Rates", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - BorrowerRate", x = "Rates", y = "Frequency") 
 
 ```
 
@@ -122,7 +125,8 @@ ggplot(data = sub_data, aes(sub_data$BorrowerRate)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$EmploymentStatusDuration)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - EmploymentStatusDuration", x = "Duration", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - EmploymentStatusDuration", x = "Duration", y = "Frequency") 
 
 ```
 
@@ -133,7 +137,8 @@ ggplot(data = sub_data, aes(sub_data$EmploymentStatusDuration)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$StatedMonthlyIncome)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - StatedMonthlyIncome", x = "Monthly Income", y = "Frequency") +
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - StatedMonthlyIncome", x = "Monthly Income", y = "Frequency") +
   xlim(0, 50000)
 
 ```
@@ -145,7 +150,8 @@ ggplot(data = sub_data, aes(sub_data$StatedMonthlyIncome)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment)) + 
-  geom_histogram(col = "blue", bins = 40, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - MonthlyLoanPayment", x = "Monthly Payment", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 40, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - MonthlyLoanPayment", x = "Monthly Payment", y = "Frequency") 
 
 ```
 
@@ -156,7 +162,8 @@ ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$DebtToIncomeRatio)) + 
-  geom_histogram(col = "blue", bins = 30, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - DebtToIncomeRatio", x = "DTI Ratio", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 30, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - DebtToIncomeRatio", x = "DTI Ratio", y = "Frequency") 
 
 ```
 
@@ -167,47 +174,92 @@ ggplot(data = sub_data, aes(sub_data$DebtToIncomeRatio)) +
 ```{r echo=FALSE}
 
 ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   labs(title = "Histogram - LoanOriginalAmount", x = "Loan Amount", y = "Frequency") 
+  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+  labs(title = "Histogram - LoanOriginalAmount", x = "Loan Amount", y = "Frequency") 
 
 ```
 
 > The distribution is right-skewed with a majority of the amount falling in the buckets of ~$50,000, ~$100,000, ~$150,000. Interesting to note here also is that the majority of the loans taken, that are over ~$100,000, are in increments of ~$50,000, such as $150,000 or $200,000 or $250,000. 
 
+#### Univariate Plot 9 - LoanStatus
 
+```{r echo=FALSE}
 
-> **Tip**: Make sure that you leave a blank line between the start / end of
-each code block and the end / start of your Markdown text so that it is
-formatted nicely in the knitted text. Note as well that text on consecutive
-lines is treated as a single space. Make sure you have a blank line between
-your paragraphs so that they too are formatted for easy readability.
+ggplot(data = sub_data, aes(sub_data$LoanStatus)) + 
+  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  labs(title = "Bar Chart - LoanStatus", x = "Loan Status", y = "Frequency") +
+  coord_flip()
+
+```
+
+> This is the first of the categorical variables of interest to be visualized - what we can see right off the bat is the frequency of people whose loan status is 'Current' as they form the majority of the observations in our data. We can ascertain that most of the people are either currently indebted ('Current') or have paid off their loan ('Completed') or have been 'Chargedoff' or they have defaulted on their loan ('Defaulted'). These 4 are our primary labels of interest while we're investigating 'LoanStatus' variable.
+
+#### Univariate Plot 10 - Occupation
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$Occupation)) + 
+  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  labs(title = "Bar Chart - Occupation", x = "Occupations", y = "Frequency") +
+  coord_flip()
+
+```
+
+> Interestingly enough a vast majority of the observations identify themselves with the "Others" occupation whereas the second-highest majority identity with "Professional." 
+
+#### Univariate Plot 11 - EmploymentStatus
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$EmploymentStatus)) + 
+  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus", y = "Frequency") +
+  coord_flip()
+
+```
+
+> Most of the observations are full-time employees. Very few retirees and part-time employees. A significant number of people are self-employed. Few people are not employed, whereas there seems to be a redundancy in the lables with both 'NA' and 'Not available' featuring in the data. Having said that, there might be a specific business reason for why they have been categorized differently. 
+
+#### Univariate Plot 12 - IsBorrowerHomeowner
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner)) + 
+  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus", y = "Frequency")
+
+```
+
+> The number of homeowners versus the number of non-homeowners are almost the same wherein the homeowners are slightly more. 
 
 # Univariate Analysis
 
-> **Tip**: Now that you've completed your univariate explorations, it's time to
-reflect on and summarize what you've found. Use the questions below to help you
-gather your observations and add your own if you have other thoughts!
-
 ### What is the structure of your dataset?
 
+> This dataset is of the dimension 113937x81 out of the which the focus has been on a subset of dimension 113937x12. The data was also in a tidy format at the outset, therefore, there was no need for formatting it any further prior to analyses.
+
 ### What is/are the main feature(s) of interest in your dataset?
+
+> I have picked 12 variables to explore in this project. The two variables that are of my primary interest are LoanStatus and IsBorrowerHomeowner.
 
 ### What other features in the dataset do you think will help support your \
 investigation into your feature(s) of interest?
 
+> I think the other 10 features besides the two main features of interest can help with the investigation, to name a few: ProsperScore, LoanOriginalAmount, Occupation.
+
 ### Did you create any new variables from existing variables in the dataset?
+
+> No, I did not perform any kind of feature engineering for the purpose of this exploratory project. That kind of requirement just never popped up so far.
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
 of the data? If so, why did you do this?
 
+> The data was already in a tidy format. As far as distributions are concerned, I've made a comment on the characteristics of the distributions which I arrived to via histograms after each plot. For the categorical variables, I had to flip the x and y axes to ensure better readability of the labels and their corresponding frequencies. 
+
+> Some of the variables were almost normally distributed, some followed a power-law distribution - by and large, I've made an effort to note that down alongside the aforementioned plots.
 
 # Bivariate Plots Section
-
-> **Tip**: Based on what you saw in the univariate plots, what relationships
-between variables might be interesting to look at in this section? Don't limit
-yourself to relationships between a main output feature and one of the
-supporting variables. Try to look at relationships between supporting variables
-as well.
 
 ```{r echo=FALSE, Bivariate_Plots}
 

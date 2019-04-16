@@ -14,7 +14,7 @@ output: html_document
 
 library(tidyverse)
 library(ggplot2)
-
+library(GGally)
 ```
 
 ## Introduction - Prosper
@@ -51,7 +51,7 @@ head(data, n = 10)
 
 > The dataset is first subsetted to include only the 12 variables of importance prior to any further analysis/plots.
 
-### Subsetting the data
+### **Subsetting the data**
 
 ```{r echo=FALSE, Univariate_Plots}
 
@@ -67,7 +67,7 @@ head(sub_data, n = 20)
 
 > The data has been successfully subsetted and contains all the observations and only the seleted 12 variables.
 
-#### Summary of Data
+#### **Summary of Data**
 > Prior to some plots, let us check out the characteristics of the chosen variables in our data subset.
 
 ```{r echo=FALSE}
@@ -240,7 +240,7 @@ ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner)) +
 
 ### What is/are the main feature(s) of interest in your dataset?
 
-> I have picked 12 variables to explore in this project. The two variables that are of my primary interest are LoanStatus and IsBorrowerHomeowner.
+> I have picked 12 variables to explore in this project. The two variables that are of my primary interest are ProsperScore and LoanStatus.
 
 ### What other features in the dataset do you think will help support your \
 investigation into your feature(s) of interest?
@@ -266,6 +266,8 @@ of the data? If so, why did you do this?
 > At this juncture, to further examine our variables of interest, we proceed with some bivariate plots. These plots will help us figure out the relationship between variables that are coupled together.
 
 ### Plots - Bivariate
+
+> We'll first explore bivariate plots with our first variable of interest - ProsperScore.
 
 #### Bivariate Plot 1 - ProsperScore and BorrowerRate
 
@@ -313,8 +315,61 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$LoanStatus)) +
 
 ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner, sub_data$ProsperScore)) + 
   geom_jitter(col = "darkgreen") +
-  labs(x = "ProsperScore", y = "IsBorrowerHomeowner") 
+  labs(x = "IsBorrowerHomeowner", y = "ProsperScore") 
   
+```
+
+#### Bivariate Plot 6 - ProsperScore and EmploymentStatus
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$EmploymentStatus, sub_data$ProsperScore)) + 
+  geom_jitter(col = "darkgreen") +
+  labs(x = "EmploymentStatus", y = "ProsperScore") 
+  
+```
+
+#### Bivariate Plot 7 - ProsperScore and LoanOriginalAmount
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$ProsperScore)) + 
+  geom_point(col = "darkgreen") +
+  labs(x = "LoanOriginalAmount", y = "ProsperScore") 
+  
+```
+
+#### Bivariate Plot 8 - ProsperScore and MonthlyLoanPayment
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$ProsperScore)) +
+  geom_point(col = "darkgreen") +
+  labs(x = "MonthlyLoanPayment", y = "ProsperScore")
+  
+```
+
+#### Bivariate Plot 9 - ProsperScore and StatedMonthlyIncome
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$StatedMonthlyIncome)) + 
+  geom_point(col = "darkgreen") +
+  labs(x = "ProsperScore", y = "StatedMonthlyIncome") 
+  
+```
+
+> We'll now explore more bivariate plots with our second variable of interest - LoanStatus
+
+#### Bivariate Plot 10 - LoanStatus and IsBorrowerHomeowner
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$IsBorrowerHomeowner)) + 
+  geom_point(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "IsBorrowerHomeowner") +
+  coord_flip()
+
 ```
 
 ## Bivariate Analysis

@@ -8,56 +8,73 @@ output: html_document
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 
-# The other parameters for "message" and "warning" should also be set to FALSE
-# for other code chunks once you have verified that each plot comes out as you
-# want it to. This will clean up the flow of your report.
+# Importing the relevant libraries for this exercise
 
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
+
+# knitr: Suppress code/messages/warnings 
+
+#        Set default plot options and center them
+
+knitr::opts_chunk$set(fig.width=9,fig.height=5,fig.path='Figs/',
+                      fig.align='center',tidy=TRUE,
+                      echo=FALSE,warning=FALSE,message=FALSE)
+
 ```
 
 ## Introduction - Prosper
-> Prosper Marketplace, Inc. is a San Francisco, California-based company in the peer-to-peer lending industry. Prosper Funding LLC, one of its subsidiaries, operates Prosper.com, a website where individuals can either invest in personal loans or request to borrow money.
 
-> Prosper Marketplace is America's first peer-to-peer lending marketplace, with over $7 billion in funded loans. Borrowers request personal loans on Prosper and investors (individual or institutional) can fund anywhere from $2,000 to $35,000 per loan request. Investors can consider borrowers' credit scores, ratings, and histories and the category of the loan. Prosper handles the servicing of the loan and collects and distributes borrower payments and interest back to the loan investors.
+Prosper Marketplace, Inc. is a San Francisco, California-based company in the peer-to-peer lending industry. Prosper Funding LLC, one of its subsidiaries, operates Prosper.com, a website where individuals can either invest in personal loans or request to borrow money.
 
-> Prosper verifies borrowers' identities and select personal data before funding loans and manages all stages of loan servicing. Prosper's unsecured personal loans are fully amortized over a period of three or five years, with no pre-payment penalties. Prosper generates revenue by collecting a one-time fee on funded loans from borrowers and assessing an annual loan servicing fee to investors.
+Prosper Marketplace is America's first peer-to-peer lending marketplace, with over \$7 billion in funded loans. Borrowers request personal loans on Prosper and investors (individual or institutional) can fund anywhere from \$2,000 to $35,000 per loan request. Investors can consider borrowers' credit scores, ratings, and histories and the category of the loan. Prosper handles the servicing of the loan and collects and distributes borrower payments and interest back to the loan investors.
 
-> Prosper has provided an increasing amount of information about prospective borrowers over time, while also making various changes to its credit policy. Prior to its 2008 'quiet period' and 2009 SEC registration, the company provided "Credit Grades" and other credit information about its prospective lenders. Following the SEC registration, the company created a new model that determined "Prosper Ratings" instead. Additionally, new prospective borrowers were required to have an FICO 8 credit score of at least 640, while returning borrowers only need a score of 600 to request a loan.
+Prosper verifies borrowers' identities and select personal data before funding loans and manages all stages of loan servicing. Prosper's unsecured personal loans are fully amortized over a period of three or five years, with no pre-payment penalties. Prosper generates revenue by collecting a one-time fee on funded loans from borrowers and assessing an annual loan servicing fee to investors.
+
+Prosper has provided an increasing amount of information about prospective borrowers over time, while also making various changes to its credit policy. Prior to its 2008 'quiet period' and 2009 SEC registration, the company provided "Credit Grades" and other credit information about its prospective lenders. Following the SEC registration, the company created a new model that determined "Prosper Ratings" instead. Additionally, new prospective borrowers were required to have an FICO 8 credit score of at least 640, while returning borrowers only need a score of 600 to request a loan.
 
 ## Project Brief
-> This project analyzes about 114,000 observations and 12 of the 81 variables in this data set. The data set contains information of about 114,000 individuals (anonymized, of course) across 81 parameters. 
 
-> There are three major sections in this project, each providing a piece for the final assessment. These sections are - Univariate Analysis, Bivariate Analysis and Multivariate Analysis. At the end, the final summary explains the results of our analyses.
+This project analyzes about 114,000 observations and 12 of the 81 variables in this data set. The data set contains information of about 114,000 individuals (anonymized, of course) across 81 parameters. 
+
+There are three major sections in this project, each providing a piece for the final assessment. These sections are - Univariate Analysis, Bivariate Analysis and Multivariate Analysis. At the end, the final summary explains the results of our analyses.
 
 ## Variables of Interest
-> The 12 variables of interest chosen out of the 81, for the purpose of this project, are: **LoanStatus, ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatus, Occupation, EmploymentStatusDuration, IsBorrowerHomeowner, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount.** 
 
+The 12 variables of interest chosen out of the 81, for the purpose of this project, are: **LoanStatus, ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatus, Occupation, EmploymentStatusDuration, IsBorrowerHomeowner, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount.** 
 
 ```{r}
+
 # Load the Data
 
-data <- read_csv("C:/Users/Endurance-III/Desktop/prosper-loan-analysis/prosperLoanData.csv")
+data <- read_csv(
+      "C:/Users/Endurance-III/Desktop/prosper-loan-analysis/prosperLoanData.csv"
+      )
 
 # View the data
+
 head(data, n = 10)
 
 ```
 
 ## Univariate Plots Section
 
-> This section explores univariate characteristics in our data through multiple univariate plots.
+This section explores univariate characteristics in our data through multiple univariate plots.
 
-> The dataset is first subsetted to include only the 12 variables of importance prior to any further analysis/plots.
+The dataset is first subsetted to include only the 12 variables of importance prior to any further analysis/plots.
 
 ### **Subsetting the data**
 
 ```{r echo=FALSE, Univariate_Plots}
 
-# Subsetting original df into new variable sub_data
+# Subsetting original df into a new variabel - sub_data
 
-sub_data <- data[c('LoanStatus', 'ProsperScore', 'BorrowerAPR', 'BorrowerRate', 'EmploymentStatus', 'Occupation', 'EmploymentStatusDuration', 'IsBorrowerHomeowner', 'StatedMonthlyIncome', 'MonthlyLoanPayment', 'DebtToIncomeRatio', 'LoanOriginalAmount')]
+sub_data <- data[c('LoanStatus', 'ProsperScore', 'BorrowerAPR', 'BorrowerRate',
+                   'EmploymentStatus', 'Occupation', 'EmploymentStatusDuration',
+                   'IsBorrowerHomeowner', 'StatedMonthlyIncome', 
+                   'MonthlyLoanPayment', 'DebtToIncomeRatio',
+                   'LoanOriginalAmount')]
 
 # Viewing subsetted data
 
@@ -65,22 +82,25 @@ head(sub_data, n = 20)
 
 ```
 
-> The data has been successfully subsetted and contains all the observations and only the seleted 12 variables.
+The data has been successfully subsetted and contains all the observations and only the seleted 12 variables.
 
 #### **Summary of Data**
-> Prior to some plots, let us check out the characteristics of the chosen variables in our data subset.
+
+Prior to some plots, let us check out the characteristics of the chosen variables in our data subset.
 
 ```{r echo=FALSE}
+
+# Checking out the summary stats of our new dataframe
 
 summary(sub_data)
 
 ```
 
-> The summary reveals a number of interesting points about our data - there are 8 numerical variables (ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatusDuration, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount); there are 3 categorical variables (LoanStatus, Occupation, EmploymentStatus); there is 1 logical (dichotomous i.e. Y/N or True/False in this case) variable (IsBorrowerHomeowner).
+The summary reveals a number of interesting points about our data - there are 8 numerical variables (ProsperScore, BorrowerAPR, BorrowerRate, EmploymentStatusDuration, StatedMonthlyIncome, MonthlyLoanPayment, DebtToIncomeRatio, LoanOriginalAmount); there are 3 categorical variables (LoanStatus, Occupation, EmploymentStatus); there is 1 logical (dichotomous i.e. Y/N or True/False in this case) variable (IsBorrowerHomeowner).
 
-> There are a number of missing or NaN variables with the highest number being 29084 (ProsperScore) and lowest non-zero being 25 (BorrowerAPR). This is something to keep in mind to decide whether we want to omit the observations or impute them and what best method for imputation should be chosen at the time of modeling.
+There are a number of missing or NaN variables with the highest number being 29084 (ProsperScore) and lowest non-zero being 25 (BorrowerAPR). This is something to keep in mind to decide whether we want to omit the observations or impute them and what best method for imputation should be chosen at the time of modeling.
 
-> A number of other observations in the summary is, perhaps, better explained through the following plots.
+A number of other observations in the summary is, perhaps, better explained through the following plots.
 
 ### Plots - Univariate
 
@@ -88,192 +108,238 @@ summary(sub_data)
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$ProsperScore)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - ProsperScore", x = "Scores", y = "Frequency") 
+# Histogram for ProsperScore against its own frequency
+
+ggplot(data = sub_data, aes(as.factor(sub_data$ProsperScore))) + 
+  geom_bar(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - ProsperScore", x = "Scores", y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> The histogram reveals a trend in the ProsperScore where the mean is centered around 4-8 on the scale. Most of the observations or individuals have a Prosper Score in the brackets of 4, 6 or 8 and the data is normally distributed with a slight right-skew and leptokurtic tendency.
+The histogram reveals a trend in the ProsperScore where the mean is centered around 4-8 on the scale. Most of the observations or individuals have a Prosper Score in the brackets of 4, 6 or 8 and the data is normally distributed with a slight right-skew and leptokurtic tendency.
 
 #### Univariate Plot 2 - BorrowerAPR
 
 ```{r echo=FALSE}
 
+# Histogram for BorrowerAPR against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - BorrowerAPR", x = "Rates", y = "Frequency") 
+  geom_histogram(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - BorrowerAPR", x = "Rates", y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> The BorrowerAPR reveals an almost normally distributed characteristic with an unusually large number of observations between 0.3 - 0.4 (almost like a bimodal distribution). The data is definitely right skewed and leptokurtic.
+The BorrowerAPR reveals an almost normally distributed characteristic with an unusually large number of observations between 0.3 - 0.4 (almost like a bimodal distribution). The data is definitely right skewed and leptokurtic.
 
 #### Univariate Plot 3 - BorrowerRate
 
 ```{r echo=FALSE}
 
+# Histogram for BorrowerRate against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - BorrowerRate", x = "Rates", y = "Frequency") 
+  geom_histogram(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - BorrowerRate", x = "Rates", y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> BorrowerRate exhibits very similar characteristics as our BorrowerAPR.
+BorrowerRate exhibits very similar characteristics as our BorrowerAPR.
 
 #### Univariate Plot 4 - EmploymentStatusDuration
 
 ```{r echo=FALSE}
 
+# Histogram for EmploymentStatusDuration against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$EmploymentStatusDuration)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - EmploymentStatusDuration", x = "Duration", y = "Frequency") 
+  geom_histogram(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - EmploymentStatusDuration", x = "Duration",
+       y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> Employment Status Duration represents a power-law distribution of the data which is heavily right-skewed. This implies that a large number of Prosper customers have an employment duration of 2-3 years whereas there are outliers such as 44 years and more.
+Employment Status Duration represents a power-law distribution of the data which is heavily right-skewed. This implies that a large number of Prosper customers have an employment duration of 2-3 years whereas there are outliers such as 44 years and more.
 
 #### Univariate Plot 5 - StatedMonthlyIncome (Limited to $50,000 per month)
 
 ```{r echo=FALSE}
 
+# Histogram for StatedMonthlyIncome against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$StatedMonthlyIncome)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - StatedMonthlyIncome", x = "Monthly Income", y = "Frequency") +
-  xlim(0, 50000)
+  geom_histogram(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - StatedMonthlyIncome", x = "Monthly Income",
+       y = "Frequency") +
+  xlim(0, 50000) +
+  guides(fill=FALSE)
 
 ```
 
-> Shows a power-law distribution with a heavy right-skew. Majority of the income earners make about $4,000 - $6,000 a month.
+Shows a power-law distribution with a heavy right-skew. Majority of the income earners make about $4,000 - $6,000 a month.
 
 #### Univariate Plot 6 - MonthlyLoanPayment 
 
 ```{r echo=FALSE}
 
+# Histogram for MonthlyLoanPayment against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment)) + 
-  geom_histogram(col = "blue", bins = 40, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - MonthlyLoanPayment", x = "Monthly Payment", y = "Frequency") 
+  geom_histogram(bins = 40, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - MonthlyLoanPayment", x = "Monthly Payment", 
+       y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> Shows a power-law distribution with a heavy right-skew, similar to our last plot. Majority of the monthly payments are in the range $150 - $250. 
+Shows a power-law distribution with a heavy right-skew, similar to our last plot. Majority of the monthly payments are in the range $150 - $250. 
 
 #### Univariate Plot 7 - DebtToIncomeRatio 
 
 ```{r echo=FALSE}
 
+# Histogram for DebtToIncomeRatio against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$DebtToIncomeRatio)) + 
-  geom_histogram(col = "blue", bins = 30, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - DebtToIncomeRatio", x = "DTI Ratio", y = "Frequency") 
+  geom_histogram(bins = 30, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - DebtToIncomeRatio", x = "DTI Ratio", 
+       y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> Follows a power-law distribution, with right-skew, similar to some of our previous plots. The Debt to Income ratio, for a majority of people, is (fortunately) less than 1 and around 0.5. There area few outliers at DTI of 2.5.
+Follows a power-law distribution, with right-skew, similar to some of our previous plots. The Debt to Income ratio, for a majority of people, is (fortunately) less than 1 and around 0.5. There area few outliers at DTI of 2.5.
 
 #### Univariate Plot 8 - LoanOriginalAmount
 
 ```{r echo=FALSE}
 
+# Histogram for LoanOriginalAmount against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount)) + 
-  geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-  labs(title = "Histogram - LoanOriginalAmount", x = "Loan Amount", y = "Frequency") 
+  geom_histogram(bins = 50, alpha = 0.8, fill = "darkblue") +   
+  labs(title = "Histogram - LoanOriginalAmount", x = "Loan Amount",
+       y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> The distribution is right-skewed with a majority of the amount falling in the buckets of ~$50,000, ~$100,000, ~$150,000. Interesting to note here also is that the majority of the loans taken, that are over ~$100,000, are in increments of ~$50,000, such as $150,000 or $200,000 or $250,000. 
+The distribution is right-skewed with a majority of the amount falling in the buckets of ~\$50,000, ~\$100,000, ~\$150,000. Interesting to note here also is that the majority of the loans taken, that are over ~\$100,000, are in increments of ~\$50,000, such as \$150,000 or \$200,000 or $250,000. 
 
 #### Univariate Plot 9 - LoanStatus
 
 ```{r echo=FALSE}
 
+# Histogram for LoanStatus against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$LoanStatus)) + 
-  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  geom_bar(alpha = 0.8, fill = "darkblue") +
   labs(title = "Bar Chart - LoanStatus", x = "Loan Status", y = "Frequency") +
-  coord_flip()
+  coord_flip() +
+  guides(fill=FALSE)
 
 ```
 
-> This is the first of the categorical variables of interest to be visualized - what we can see right off the bat is the frequency of people whose loan status is 'Current' as they form the majority of the observations in our data. We can ascertain that most of the people are either currently indebted ('Current') or have paid off their loan ('Completed') or have been 'Chargedoff' or they have defaulted on their loan ('Defaulted'). These 4 are our primary labels of interest while we're investigating 'LoanStatus' variable.
+This is the first of the categorical variables of interest to be visualized - what we can see right off the bat is the frequency of people whose loan status is 'Current' as they form the majority of the observations in our data. We can ascertain that most of the people are either currently indebted ('Current') or have paid off their loan ('Completed') or have been 'Chargedoff' or they have defaulted on their loan ('Defaulted'). These 4 are our primary labels of interest while we're investigating 'LoanStatus' variable.
 
 #### Univariate Plot 10 - Occupation
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=10, fig.height=9}
+
+# Histogram for Occupation against its own frequency
 
 ggplot(data = sub_data, aes(sub_data$Occupation)) + 
-  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
+  geom_bar(alpha = 0.8, fill = "darkblue") +
   labs(title = "Bar Chart - Occupation", x = "Occupations", y = "Frequency") +
-  coord_flip()
+  coord_flip() +
+  guides(fill=FALSE)
 
 ```
 
-> Interestingly enough a vast majority of the observations identify themselves with the "Others" occupation whereas the second-highest majority identity with "Professional." 
+Interestingly enough a vast majority of the observations identify themselves with the "Others" occupation whereas the second-highest majority identity with "Professional." 
 
 #### Univariate Plot 11 - EmploymentStatus
 
 ```{r echo=FALSE}
 
+# Histogram for EmploymentStatus against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$EmploymentStatus)) + 
-  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
-  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus", y = "Frequency") +
-  coord_flip()
+  geom_bar(alpha = 0.8, fill = "darkblue") +
+  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus",
+       y = "Frequency") +
+  coord_flip() +
+  guides(fill=FALSE)
 
 ```
 
-> Most of the observations are full-time employees. Very few retirees and part-time employees. A significant number of people are self-employed. Few people are not employed, whereas there seems to be a redundancy in the lables with both 'NA' and 'Not available' featuring in the data. Having said that, there might be a specific business reason for why they have been categorized differently. 
+Most of the observations are full-time employees. Very few retirees and part-time employees. A significant number of people are self-employed. Few people are not employed, whereas there seems to be a redundancy in the lables with both 'NA' and 'Not available' featuring in the data. Having said that, there might be a specific business reason for why they have been categorized differently. 
 
 #### Univariate Plot 12 - IsBorrowerHomeowner
 
 ```{r echo=FALSE}
 
+# Histogram for IsBorrowerHomeowner against its own frequency
+
 ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner)) + 
-  geom_bar(col = "blue", alpha = 0.8, aes(fill = ..count..)) +
-  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus", y = "Frequency")
+  geom_bar(alpha = 0.8, fill = "darkblue") +
+  labs(title = "Bar Chart - EmploymentStatus", x = "EmploymentStatus",
+       y = "Frequency") +
+  guides(fill=FALSE)
 
 ```
 
-> The number of homeowners versus the number of non-homeowners are almost the same wherein the homeowners are slightly more. 
+The number of homeowners versus the number of non-homeowners are almost the same wherein the homeowners are slightly more. 
 
 ## Univariate Analysis
 
 ### What is the structure of your dataset?
 
-> This dataset is of the dimension 113937x81 out of the which the focus has been on a subset of dimension 113937x12. The data was also in a tidy format at the outset, therefore, there was no need for formatting it any further prior to analyses.
+This dataset is of the dimension 113937x81 out of the which the focus has been on a subset of dimension 113937x12. The data was also in a tidy format at the outset, therefore, there was no need for formatting it any further prior to analyses.
 
 ### What is/are the main feature(s) of interest in your dataset?
 
-> I have picked 12 variables to explore in this project. The two variables that are of my primary interest are ProsperScore and LoanStatus.
+I have picked 12 variables to explore in this project. The two variables that are of my primary interest are ProsperScore and LoanStatus.
 
 ### What other features in the dataset do you think will help support your \
 investigation into your feature(s) of interest?
 
-> I think the other 10 features besides the two main features of interest can help with the investigation, to name a few: ProsperScore, LoanOriginalAmount, Occupation.
+I think the other 10 features besides the two main features of interest can help with the investigation, to name a few: ProsperScore, LoanOriginalAmount, Occupation.
 
 ### Did you create any new variables from existing variables in the dataset?
 
-> No, I did not perform any kind of feature engineering for the purpose of this exploratory project. That kind of requirement just never popped up so far.
+No, I did not perform any kind of feature engineering for the purpose of this exploratory project. That kind of requirement just never popped up so far.
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
 of the data? If so, why did you do this?
 
-> The data was already in a tidy format. As far as distributions are concerned, I've made a comment on the characteristics of the distributions which I arrived to via histograms after each plot. For the categorical variables, I had to flip the x and y axes to ensure better readability of the labels and their corresponding frequencies. 
+The data was already in a tidy format. As far as distributions are concerned, I've made a comment on the characteristics of the distributions which I arrived to via histograms after each plot. For the categorical variables, I had to flip the x and y axes to ensure better readability of the labels and their corresponding frequencies. 
 
-> Some of the variables were almost normally distributed, some followed a power-law distribution - by and large, I've made an effort to note that down alongside the aforementioned plots.
+Some of the variables were almost normally distributed, some followed a power-law distribution - by and large, I've made an effort to note that down alongside the aforementioned plots.
 
 ## Bivariate Plots Section
 
 #### Summary
 
-> At this juncture, to further examine our variables of interest, we proceed with some bivariate plots. These plots will help us figure out the relationship between variables that are coupled together.
+At this juncture, to further examine our variables of interest, we proceed with some bivariate plots. These plots will help us figure out the relationship between variables that are coupled together.
 
 ### Plots - Bivariate
 
-> We'll first explore bivariate plots with our first variable of interest - ProsperScore.
+We'll first explore bivariate plots with our first variable of interest - ProsperScore.
 
 #### Bivariate Plot 1 - ProsperScore and BorrowerRate
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$BorrowerRate)) + 
+# Plot representing the relationship between ProsperScore and BorrowerRate
+
+ggplot(data = sub_data, aes(as.factor(sub_data$ProsperScore), 
+                            sub_data$BorrowerRate)) + 
   geom_jitter(col = 'darkgreen') +
   labs(x = "ProsperScore", y = "BorrowerRate") 
   
@@ -283,7 +349,10 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$BorrowerRate)) +
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$BorrowerAPR)) + 
+# Plot representing the relationship between ProsperScore and BorrowerAPR
+
+ggplot(data = sub_data, aes(as.factor(sub_data$ProsperScore), 
+                            sub_data$BorrowerAPR)) + 
   geom_jitter(col = 'darkgreen') +
   labs(x = "ProsperScore", y = "BorrowerAPR") 
   
@@ -291,7 +360,9 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$BorrowerAPR)) +
 
 #### Bivariate Plot 3 - MonthlyLoanPayment and Occupation
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=10, fig.height=9}
+
+# Plot representing the relationship between MonthlyLoanPayment and Occupation
 
 ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$Occupation)) + 
   geom_point(col = 'darkgreen') +
@@ -303,7 +374,10 @@ ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$Occupation)) +
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$LoanStatus)) + 
+# Plot representing the relationship between ProsperScore and LoanStatus
+
+ggplot(data = sub_data, aes(as.factor(sub_data$ProsperScore), 
+                            sub_data$LoanStatus)) + 
   geom_jitter(col = "darkgreen") +
   labs(x = "ProsperScore", y = "LoanStatus") 
   
@@ -313,7 +387,10 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$LoanStatus)) +
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner, sub_data$ProsperScore)) + 
+# Plot representing the relationship between ProsperScore and IsBorrowerHomeowner
+
+ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner, 
+                            as.factor(sub_data$ProsperScore))) + 
   geom_jitter(col = "darkgreen") +
   labs(x = "IsBorrowerHomeowner", y = "ProsperScore") 
   
@@ -323,7 +400,10 @@ ggplot(data = sub_data, aes(sub_data$IsBorrowerHomeowner, sub_data$ProsperScore)
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$EmploymentStatus, sub_data$ProsperScore)) + 
+# Plot representing the relationship between ProsperScore and EmploymentStatus
+
+ggplot(data = sub_data, aes(sub_data$EmploymentStatus, 
+                            as.factor(sub_data$ProsperScore))) + 
   geom_jitter(col = "darkgreen") +
   labs(x = "EmploymentStatus", y = "ProsperScore") 
   
@@ -333,8 +413,11 @@ ggplot(data = sub_data, aes(sub_data$EmploymentStatus, sub_data$ProsperScore)) +
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$ProsperScore)) + 
-  geom_point(col = "darkgreen") +
+# Plot representing the relationship between ProsperScore and LoanOriginalAmount
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, 
+                            as.factor(sub_data$ProsperScore))) + 
+  geom_jitter(col = "darkgreen") +
   labs(x = "LoanOriginalAmount", y = "ProsperScore") 
   
 ```
@@ -343,8 +426,11 @@ ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$ProsperScore))
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$ProsperScore)) +
-  geom_point(col = "darkgreen") +
+# Plot representing the relationship between ProsperScore and MonthlyLoanPayment
+
+ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, 
+                            as.factor(sub_data$ProsperScore))) +
+  geom_jitter(col = "darkgreen") +
   labs(x = "MonthlyLoanPayment", y = "ProsperScore")
   
 ```
@@ -353,8 +439,11 @@ ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$ProsperScore))
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$StatedMonthlyIncome)) + 
-  geom_point(col = "darkgreen") +
+# Plot representing the relationship between ProsperScore and StatedMonthlyIncome
+
+ggplot(data = sub_data, aes(as.factor(sub_data$ProsperScore),
+                            sub_data$StatedMonthlyIncome)) + 
+  geom_jitter(col = "darkgreen") +
   labs(x = "ProsperScore", y = "StatedMonthlyIncome") 
   
 ```
@@ -365,10 +454,14 @@ ggplot(data = sub_data, aes(sub_data$ProsperScore, sub_data$StatedMonthlyIncome)
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$IsBorrowerHomeowner)) + 
-  geom_point(col = "darkgreen") +
+# Heatmap representing the relationship between LoanStatus and IsBorrowerHomeowner
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, 
+                            sub_data$IsBorrowerHomeowner)) + 
+  stat_bin2d(aes(fill= ..count..), alpha = 0.5, color = "white") +
   labs(x = "LoanStatus", y = "IsBorrowerHomeowner") +
-  coord_flip()
+  coord_flip() +
+  scale_fill_gradient(low = "blue", high = "green")
 
 ```
 
@@ -376,20 +469,28 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$IsBorrowerHomeowner)) 
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$EmploymentStatus)) + 
-  geom_point(col = "darkgreen") +
+# Heatmap representing the relationship between LoanStatus and EmploymentStatus
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, 
+                            sub_data$EmploymentStatus)) + 
+  stat_bin2d(aes(fill= ..count..), alpha = 0.5, color = "white") +
   labs(x = "LoanStatus", y = "EmploymentStatus") +
-  coord_flip()
+  coord_flip() +
+  scale_fill_gradient(low = "blue", high = "green")
 
 ```
 
 #### Bivariate Plot 12 - LoanStatus and Occupation
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=10, fig.height=9}
 
-ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$Occupation)) + 
-  geom_point(col = "darkgreen") +
+# Heatmap representing the relationship between LoanStatus and Occupation
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus,
+                            sub_data$Occupation)) + 
+  stat_bin2d(aes(fill= ..count..), alpha = 0.5, color = "white") +
   labs(x = "LoanStatus", y = "Occupation") +
+  scale_fill_gradient(low = "blue", high = "green") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
   
 ```
@@ -397,6 +498,8 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$Occupation)) +
 #### Bivariate Plot 13 - LoanStatus and LoanOriginalAmount
 
 ```{r echo=FALSE}
+
+# Plot representing the relationship between LoanStatus and LoanOriginalAmount
 
 ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$LoanOriginalAmount)) + 
   geom_jitter(col = "darkgreen") +
@@ -409,7 +512,10 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$LoanOriginalAmount)) +
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$StatedMonthlyIncome)) + 
+# Plot representing the relationship between LoanStatus and StatedMonthlyIncome
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, 
+                            sub_data$StatedMonthlyIncome)) + 
   geom_jitter(col = "darkgreen") +
   labs(x = "LoanStatus", y = "StatedMonthlyIncome") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
@@ -420,7 +526,10 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$StatedMonthlyIncome)) 
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$EmploymentStatusDuration)) + 
+# Plot representing the relationship between LoanStatus and EmploymentStatusDuration
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, 
+                            sub_data$EmploymentStatusDuration)) + 
   geom_jitter(col = "darkgreen") +
   labs(x = "LoanStatus", y = "EmploymentStatusDuration") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
@@ -430,6 +539,8 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$EmploymentStatusDurati
 #### Bivariate Plot 16 - LoanStatus and BorrowerRate
 
 ```{r echo=FALSE}
+
+# Plot representing the relationship between LoanStatus and BorrowerRate
 
 ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$BorrowerRate)) + 
   geom_jitter(col = "darkgreen") +
@@ -444,36 +555,36 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$BorrowerRate)) +
 investigation. How did the feature(s) of interest vary with other features in \
 the dataset?
 
-> The main relationships explored in this section are the ProsperScore and LoanStatus relationships with other variables of import. 
+The main relationships explored in this section are the ProsperScore and LoanStatus relationships with other variables of import. 
 
-> ProsperScore and BorrowerRate are clearly correlated. It can be observed that the higher the average ProsperScore, the lower the BorrowerRate. 
+ProsperScore and BorrowerRate are clearly correlated. It can be observed that the higher the average ProsperScore, the lower the BorrowerRate. 
 
-> The same property applies when we discuss BorrowerAPR and ProsperScore. Since BorrowerAPR and BorrowerRate are firstly correlated, it only follows that the ProsperScore versus BorrowerAPR will also show similar properties. However, our graphs show that for BorrowerAPR, the highest rate is around 0.41 whereas it is 0.35 for BorrowerRate for the same set of observations.
+The same property applies when we discuss BorrowerAPR and ProsperScore. Since BorrowerAPR and BorrowerRate are firstly correlated, it only follows that the ProsperScore versus BorrowerAPR will also show similar properties. However, our graphs show that for BorrowerAPR, the highest rate is around 0.41 whereas it is 0.35 for BorrowerRate for the same set of observations.
 
-> ProsperScore seems to be better for Employed people as opposed to other Employment statuses but that's also because a majority of our observations are Employed people.
+ProsperScore seems to be better for Employed people as opposed to other Employment statuses but that's also because a majority of our observations are Employed people.
 
-> There are some people who have a lower ProsperScore despite having higher monthly loan payments (i.e. > $1200).
+There are some people who have a lower ProsperScore despite having higher monthly loan payments (i.e. > $1200).
 
-> There are people with higher than average StatedMonthlyIncome and yet pretty low ProsperScore (e.g. below 5).
+There are people with higher than average StatedMonthlyIncome and yet pretty low ProsperScore (e.g. below 5).
 
-> As far as LoanStatus is concerned, Employed and Self-Employed people seem to have a wide distribution of different loan statuses from Charged off to Past due (91-120 days). Interestingly only Full time, Not available and NA folks have Cancelled LoanStatus.
+As far as LoanStatus is concerned, Employed and Self-Employed people seem to have a wide distribution of different loan statuses from Charged off to Past due (91-120 days). Interestingly only Full time, Not available and NA folks have Cancelled LoanStatus.
 
 ### Did you observe any interesting relationships between the other features \
 (not the main feature(s) of interest)?
 
-> It was observed that MonthlyLoanPayment and Occupation are correlated and are important features to look out for.
+It was observed that MonthlyLoanPayment and Occupation are correlated and are important features to look out for.
 
-> We can see how Occupation impacts MonthlyLoanPayment wherein certain occupations (e.g. college or school students) pay smaller sums of money as opposed to others (e.g. accountants or engineers).
+We can see how Occupation impacts MonthlyLoanPayment wherein certain occupations (e.g. college or school students) pay smaller sums of money as opposed to others (e.g. accountants or engineers).
 
 ### What was the strongest relationship you found?
 
-> The strongest relationships found were the relationship between ProsperScore and BorrowerRate/BorrowerAPR; LoanStatus and ProsperScore. We have already disccused the ProsperScore and BorrowerRate/APR relation, what is of interest with respect to LoanStatus is that we can see how a high ProsperScore (e.g. 9) has a corresponding LoanStatus that is good (e.g. Completed or Current) and rarely an instance of defaulting.
+The strongest relationships found were the relationship between ProsperScore and BorrowerRate/BorrowerAPR; LoanStatus and ProsperScore. We have already disccused the ProsperScore and BorrowerRate/APR relation, what is of interest with respect to LoanStatus is that we can see how a high ProsperScore (e.g. 9) has a corresponding LoanStatus that is good (e.g. Completed or Current) and rarely an instance of defaulting.
 
 ## Multivariate Plots Section
 
 #### Summary
 
-> This part focuses on Multivariate plots derived from our previous bivariate explorations. Through this, we will be able to establish, with better visuals, our observations about the selected features.
+This part focuses on Multivariate plots derived from our previous bivariate explorations. Through this, we will be able to establish, with better visuals, our observations about the selected features.
 
 ### Plots - Multivariate
 
@@ -481,7 +592,10 @@ the dataset?
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$BorrowerRate, sub_data$LoanOriginalAmount, color = ProsperScore)) + 
+# Multivariate plot for BorrowerRate, LoanOriginalAmount and ProsperScore
+
+ggplot(data = sub_data, aes(sub_data$BorrowerRate, sub_data$LoanOriginalAmount,
+                            color = as.factor(ProsperScore))) + 
   geom_point(alpha = 0.5) +
   labs(x = "BorrowerRate", y = "LoanOriginalAmount") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
@@ -492,7 +606,10 @@ ggplot(data = sub_data, aes(sub_data$BorrowerRate, sub_data$LoanOriginalAmount, 
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+# Multivariate plot for LoanOriginalAmount, StatedMonthlyIncome and LoanStatus
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, 
+                            sub_data$StatedMonthlyIncome, 
   color = LoanStatus)) + 
   geom_jitter(alpha = 0.5) +
   coord_cartesian(ylim = c(0, 200000)) +
@@ -505,7 +622,10 @@ ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyI
 
 ```{r echo=FALSE}
 
-ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+# Multivariate plot for LoanOriginalAmount, StatedMonthlyIncome and IsBorrowerHomeowner
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, 
+                            sub_data$StatedMonthlyIncome, 
   color = IsBorrowerHomeowner)) + 
   geom_point(alpha = 0.5) +
   coord_cartesian(ylim = c(0, 200000)) +
@@ -521,20 +641,20 @@ ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyI
 investigation. Were there features that strengthened each other in terms of \
 looking at your feature(s) of interest?
 
-> From the first plot, we can clearly see a pattern emerging in terms of LoanOriginalAmount, BorrowerRate and ProsperScore. Here, we notice that lower BorrowerRate correspond to higher ProsperScore and LoanOriginalAmount seems to be independent of that. We also notice the converse situation wherein a higher BorrowerRate corresponds to lower ProsperScore and again, this seems to be independent of the LoanOriginalAmount. 
+From the first plot, we can clearly see a pattern emerging in terms of LoanOriginalAmount, BorrowerRate and ProsperScore. Here, we notice that lower BorrowerRate correspond to higher ProsperScore and LoanOriginalAmount seems to be independent of that. We also notice the converse situation wherein a higher BorrowerRate corresponds to lower ProsperScore and again, this seems to be independent of the LoanOriginalAmount. 
 
-> By and large, the impact of LoanStatus seems to be randomly distributed when observing it against StatedMonthlyIncome and LoanOriginalAmount. Although we do notice that for certain amounts, there tends to be a spike (e.g. at the ~150,000 and ~250,000 marks). The LoanStatus seems to be Current or in one of the Past Due stages.
+By and large, the impact of LoanStatus seems to be randomly distributed when observing it against StatedMonthlyIncome and LoanOriginalAmount. Although we do notice that for certain amounts, there tends to be a spike (e.g. at the ~150,000 and ~250,000 marks). The LoanStatus seems to be Current or in one of the Past Due stages.
 
-> IsBorrowerHomeowner seems to have an impact on both the StatedMonthlyIncome and the LoanOriginalAmount wherein we can see that being a homeowner corresponds to higher monthly income and more people who take a higher original loan amount. Additionally, all the spikes at the aforementioned marks (i.e. ~100,000, ~150,000, ~250,000) seem to be overwhelmingly in majority of home owners.
+IsBorrowerHomeowner seems to have an impact on both the StatedMonthlyIncome and the LoanOriginalAmount wherein we can see that being a homeowner corresponds to higher monthly income and more people who take a higher original loan amount. Additionally, all the spikes at the aforementioned marks (i.e. ~100,000, ~150,000, ~250,000) seem to be overwhelmingly in majority of home owners.
 
 ### Were there any interesting or surprising interactions between features?
 
-> It can be observed that BorrowerRate and ProsperScore seem to be highly correlated. Additionally, Homeowners tend to be in a better financial position and that, perhaps, makes them better candidates for granting loans.
+It can be observed that BorrowerRate and ProsperScore seem to be highly correlated. Additionally, Homeowners tend to be in a better financial position and that, perhaps, makes them better candidates for granting loans.
 
 ### OPTIONAL: Did you create any models with your dataset? Discuss the \
 strengths and limitations of your model.
 
-> No, no models were created for this since this is focused as an EDA project. However, future editions may include statistical models such as a logistic regression model.
+No, no models were created for this since this is focused as an EDA project. However, future editions may include statistical models such as a logistic regression model.
 
 ------
 
@@ -543,13 +663,23 @@ strengths and limitations of your model.
 ### Plot One - The Rates
 ```{r echo=FALSE, Plot_One}
 
+# Creating two individual histograms as p1 and p2
+
 p1 <- ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
-        geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-        labs(title = "Histogram - Borrower Rate", x = "Borrower Rate (in %)", y = "Frequency") 
+        geom_histogram(col = "blue", bins = 50, alpha = 0.8,
+                       aes(fill = ..count..)) +   
+        labs(title = "Histogram - Borrower Rate", x = "Borrower Rate (in %)",
+             y = "Frequency") +
+        guides(fill=FALSE)
 
 p2 <- ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
-        geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
-        labs(title = "Histogram - Borrower APR", x = "Borrower APR (in %)", y = "Frequency")
+        geom_histogram(col = "blue", bins = 50, alpha = 0.8, 
+                       aes(fill = ..count..)) +   
+        labs(title = "Histogram - Borrower APR", x = "Borrower APR (in %)",
+             y = "Frequency") +
+        guides(fill=FALSE)
+
+# Arranging the 2 plots side-by-side for display
 
 grid.arrange(p1, p2, ncol = 2)
 
@@ -557,63 +687,71 @@ grid.arrange(p1, p2, ncol = 2)
 
 ### Description One
 
-> The rates were always an interesting factor since they seemed to have 'control' over other features such as ProsperScore. 
+The rates were always an interesting factor since they seemed to have 'control' over other features such as ProsperScore. 
 
-> A little research on Prosper's own website revealed it normal for the Borrower Rate and the Borrower APR to follow similar distributions since the APR is nothing but the Rate plus any fees charged to originate the loan.
+A little research on Prosper's own website revealed it normal for the Borrower Rate and the Borrower APR to follow similar distributions since the APR is nothing but the Rate plus any fees charged to originate the loan.
 
-> These two plots reveal the close relationships between the two rates.
+These two plots reveal the close relationships between the two rates.
 
 ### Plot Two - The Impact of Occupation
-```{r echo=FALSE, Plot_Two}
+```{r echo=FALSE, fig.width=10, fig.height=9, Plot_Two}
+
+# Plot that maps MonthlyLoanPayment with Occupation to show their relationship
 
 ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$Occupation)) + 
   geom_point(col = 'darkgreen') +
-  labs(title = "Occupations vs MonthlyLoanPayment", x = "MonthlyLoanPayment (in $)", y = "Occupations") 
+  labs(title = "Occupations vs MonthlyLoanPayment", 
+       x = "MonthlyLoanPayment (in $)", y = "Occupations") 
 
 ```
 
 ### Description Two
 
-> This plot reflects the differences in Occupations and how it affects a person's MonthlyLoanPayment options.
+This plot reflects the differences in Occupations and how it affects a person's MonthlyLoanPayment options.
 
-> We can see how certain professions make smaller payments whereas others make much larger payments and we can see a clear divide between certified professionals (e.g. Accountants) versus people who probably don't hold a bachelor's degree yet (e.g. Students).
+We can see how certain professions make smaller payments whereas others make much larger payments and we can see a clear divide between certified professionals (e.g. Accountants) versus people who probably don't hold a bachelor's degree yet (e.g. Students).
 
 ### Plot Three - To Own or Not To Own
 ```{r echo=FALSE, Plot_Three}
 
-ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+# Plotting LoanOriginalAmount, StatedMonthlyIncome and IsBorrowerHomeowner in a multivariate plot
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, 
+                            sub_data$StatedMonthlyIncome, 
   color = IsBorrowerHomeowner)) + 
   geom_point(alpha = 0.5) +
   coord_cartesian(ylim = c(0, 200000)) +
-  labs(title = "LoanOriginalAmount vs StatedMonthlyIncome vs IsBorrowerHomeowner", x = "LoanOriginalAmount (in $)", y        = "StatedMonthlyIncome (in $)") +
+  labs(title = "LoanOriginalAmount, StatedMonthlyIncome & IsBorrowerHomeowner",
+       x = "LoanOriginalAmount (in $)",
+       y = "StatedMonthlyIncome (in $)") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
 
 ```
 
 ### Description Three
 
-> This final plot emphasizes the need for owning a house. House ownership seems to be a defining factor for individuals taking loans.
+This final plot emphasizes the need for owning a house. House ownership seems to be a defining factor for individuals taking loans.
 
-> We can see how home ownership helps us identify monthly income and original loan amount (e.g. home owners tend to have higher monthly income and tend to take more loans, perhaps the latter being a consequence of the former). 
+We can see how home ownership helps us identify monthly income and original loan amount (e.g. home owners tend to have higher monthly income and tend to take more loans, perhaps the latter being a consequence of the former). 
 
 ------
 
 ## Reflection
 
-> As final thoughts, I can reflect upon the sheer enormousness of the dataset that I had started the investigation on - from 113937x81 to reducing that and narrowing down to 113937x12. Of these 12 key features, it was soon important to explore what role ProsperScore and LoanStatus played throughout the myriad properties/features of the dataset.
+As final thoughts, I can reflect upon the sheer enormousness of the dataset that I had started the investigation on - from 113937x81 to reducing that and narrowing down to 113937x12. Of these 12 key features, it was soon important to explore what role ProsperScore and LoanStatus played throughout the myriad properties/features of the dataset.
 
-> Prosper was an excellent candidate for EDA with numerous features to explore. I believe the dataset is a great option for future modeling purposes (e.g. loan default classification). Additionally, the website itself had some interesting information that helped with this analysis (e.g. APR versus Borrower Rate).
+Prosper was an excellent candidate for EDA with numerous features to explore. I believe the dataset is a great option for future modeling purposes (e.g. loan default classification). Additionally, the website itself had some interesting information that helped with this analysis (e.g. APR versus Borrower Rate).
 
-> The major struggles throughout this exploration were the choice of features and particularly to not jump to conclusion after looking at only a fragment of the data. It is, indeed, important to have the bigger picture. The choices of graphs in this exercise were made keeping in mind simplicity and, therefore, there have been no fancy charts or illustrations. 
+The major struggles throughout this exploration were the choice of features and particularly to not jump to conclusion after looking at only a fragment of the data. It is, indeed, important to have the bigger picture. The choices of graphs in this exercise were made keeping in mind simplicity and, therefore, there have been no fancy charts or illustrations. 
 
-> In the words of John Tukey: "Exploratory data analysis can never be the whole story, but nothing else can serve as the foundation stone."
+In the words of John Tukey: "Exploratory data analysis can never be the whole story, but nothing else can serve as the foundation stone."
 
 ## References
 
-> 1. Prosper Website - https://www.prosper.com/
+1. Prosper Website - https://www.prosper.com/
 
-> 2. Prosper Help - https://prosper.zendesk.com/hc/en-us/articles/208500686-What-is-the-difference-between-Interest-Rate-and-APR-
+2. Prosper Help - https://prosper.zendesk.com/hc/en-us/articles/208500686-What-is-the-difference-between-Interest-Rate-and-APR-
 
-> 3. Investopedia - https://www.investopedia.com/ask/answers/100314/what-difference-between-interest-rate-and-annual-percentage-rate-apr.asp
+3. Investopedia - https://www.investopedia.com/ask/answers/100314/what-difference-between-interest-rate-and-annual-percentage-rate-apr.asp
 
-> 4. Special thanks to Joy Lal Chattaraj - https://github.com/Joylal4896
+4. Special thanks to Joy Lal Chattaraj - https://github.com/Joylal4896

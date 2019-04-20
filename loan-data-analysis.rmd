@@ -14,7 +14,7 @@ output: html_document
 
 library(tidyverse)
 library(ggplot2)
-library(GGally)
+library(gridExtra)
 ```
 
 ## Introduction - Prosper
@@ -372,33 +372,148 @@ ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$IsBorrowerHomeowner)) 
 
 ```
 
-## Bivariate Analysis
+#### Bivariate Plot 11 - LoanStatus and EmploymentStatus
 
-> **Tip**: As before, summarize what you found in your bivariate explorations
-here. Use the questions below to guide your discussion.
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$EmploymentStatus)) + 
+  geom_point(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "EmploymentStatus") +
+  coord_flip()
+
+```
+
+#### Bivariate Plot 12 - LoanStatus and Occupation
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$Occupation)) + 
+  geom_point(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "Occupation") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  
+```
+
+#### Bivariate Plot 13 - LoanStatus and LoanOriginalAmount
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$LoanOriginalAmount)) + 
+  geom_jitter(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "LoanOriginalAmount") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  
+```
+
+#### Bivariate Plot 14 - LoanStatus and StatedMonthlyIncome
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$StatedMonthlyIncome)) + 
+  geom_jitter(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "StatedMonthlyIncome") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  
+```
+
+#### Bivariate Plot 15 - LoanStatus and EmploymentStatusDuration
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$EmploymentStatusDuration)) + 
+  geom_jitter(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "EmploymentStatusDuration") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  
+```
+
+#### Bivariate Plot 16 - LoanStatus and BorrowerRate
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanStatus, sub_data$BorrowerRate)) + 
+  geom_jitter(col = "darkgreen") +
+  labs(x = "LoanStatus", y = "BorrowerRate") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  
+```
+
+## Bivariate Analysis
 
 ### Talk about some of the relationships you observed in this part of the \
 investigation. How did the feature(s) of interest vary with other features in \
 the dataset?
 
+> The main relationships explored in this section are the ProsperScore and LoanStatus relationships with other variables of import. 
+
+> ProsperScore and BorrowerRate are clearly correlated. It can be observed that the higher the average ProsperScore, the lower the BorrowerRate. 
+
+> The same property applies when we discuss BorrowerAPR and ProsperScore. Since BorrowerAPR and BorrowerRate are firstly correlated, it only follows that the ProsperScore versus BorrowerAPR will also show similar properties. However, our graphs show that for BorrowerAPR, the highest rate is around 0.41 whereas it is 0.35 for BorrowerRate for the same set of observations.
+
+> ProsperScore seems to be better for Employed people as opposed to other Employment statuses but that's also because a majority of our observations are Employed people.
+
+> There are some people who have a lower ProsperScore despite having higher monthly loan payments (i.e. > $1200).
+
+> There are people with higher than average StatedMonthlyIncome and yet pretty low ProsperScore (e.g. below 5).
+
+> As far as LoanStatus is concerned, Employed and Self-Employed people seem to have a wide distribution of different loan statuses from Charged off to Past due (91-120 days). Interestingly only Full time, Not available and NA folks have Cancelled LoanStatus.
+
 ### Did you observe any interesting relationships between the other features \
 (not the main feature(s) of interest)?
 
+> It was observed that MonthlyLoanPayment and Occupation are correlated and are important features to look out for.
+
+> We can see how Occupation impacts MonthlyLoanPayment wherein certain occupations (e.g. college or school students) pay smaller sums of money as opposed to others (e.g. accountants or engineers).
+
 ### What was the strongest relationship you found?
 
+> The strongest relationships found were the relationship between ProsperScore and BorrowerRate/BorrowerAPR; LoanStatus and ProsperScore. We have already disccused the ProsperScore and BorrowerRate/APR relation, what is of interest with respect to LoanStatus is that we can see how a high ProsperScore (e.g. 9) has a corresponding LoanStatus that is good (e.g. Completed or Current) and rarely an instance of defaulting.
 
-# Multivariate Plots Section
+## Multivariate Plots Section
 
-> **Tip**: Now it's time to put everything together. Based on what you found in
-the bivariate plots section, create a few multivariate plots to investigate
-more complex interactions between variables. Make sure that the plots that you
-create here are justified by the plots you explored in the previous section. If
-you plan on creating any mathematical models, this is the section where you
-will do that.
+#### Summary
 
-```{r echo=FALSE, Multivariate_Plots}
+> This part focuses on Multivariate plots derived from our previous bivariate explorations. Through this, we will be able to establish, with better visuals, our observations about the selected features.
+
+### Plots - Multivariate
+
+#### Multivariate Plot 1 - BorrowerRate, LoanOriginalAmount and ProsperScore
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$BorrowerRate, sub_data$LoanOriginalAmount, color = ProsperScore)) + 
+  geom_point(alpha = 0.5) +
+  labs(x = "BorrowerRate", y = "LoanOriginalAmount") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
 ```
+
+#### Multivariate Plot 2 - LoanOriginalAmount, StatedMonthlyIncome and LoanStatus
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+  color = LoanStatus)) + 
+  geom_jitter(alpha = 0.5) +
+  coord_cartesian(ylim = c(0, 200000)) +
+  labs(x = "LoanOriginalAmount", y = "StatedMonthlyIncome") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
+  
+```
+
+#### Multivariate Plot 3 - LoanOriginalAmount, StatedMonthlyIncome and IsBorrowerHomeowner
+
+```{r echo=FALSE}
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+  color = IsBorrowerHomeowner)) + 
+  geom_point(alpha = 0.5) +
+  coord_cartesian(ylim = c(0, 200000)) +
+  labs(x = "LoanOriginalAmount", y = "StatedMonthlyIncome") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
+
+```
+
 
 # Multivariate Analysis
 
@@ -406,54 +521,99 @@ will do that.
 investigation. Were there features that strengthened each other in terms of \
 looking at your feature(s) of interest?
 
+> From the first plot, we can clearly see a pattern emerging in terms of LoanOriginalAmount, BorrowerRate and ProsperScore. Here, we notice that lower BorrowerRate correspond to higher ProsperScore and LoanOriginalAmount seems to be independent of that. We also notice the converse situation wherein a higher BorrowerRate corresponds to lower ProsperScore and again, this seems to be independent of the LoanOriginalAmount. 
+
+> By and large, the impact of LoanStatus seems to be randomly distributed when observing it against StatedMonthlyIncome and LoanOriginalAmount. Although we do notice that for certain amounts, there tends to be a spike (e.g. at the ~150,000 and ~250,000 marks). The LoanStatus seems to be Current or in one of the Past Due stages.
+
+> IsBorrowerHomeowner seems to have an impact on both the StatedMonthlyIncome and the LoanOriginalAmount wherein we can see that being a homeowner corresponds to higher monthly income and more people who take a higher original loan amount. Additionally, all the spikes at the aforementioned marks (i.e. ~100,000, ~150,000, ~250,000) seem to be overwhelmingly in majority of home owners.
+
 ### Were there any interesting or surprising interactions between features?
+
+> It can be observed that BorrowerRate and ProsperScore seem to be highly correlated. Additionally, Homeowners tend to be in a better financial position and that, perhaps, makes them better candidates for granting loans.
 
 ### OPTIONAL: Did you create any models with your dataset? Discuss the \
 strengths and limitations of your model.
+
+> No, no models were created for this since this is focused as an EDA project. However, future editions may include statistical models such as a logistic regression model.
 
 ------
 
 # Final Plots and Summary
 
-> **Tip**: You've done a lot of exploration and have built up an understanding
-of the structure of and relationships between the variables in your dataset.
-Here, you will select three plots from all of your previous exploration to
-present here as a summary of some of your most interesting findings. Make sure
-that you have refined your selected plots for good titling, axis labels (with
-units), and good aesthetic choices (e.g. color, transparency). After each plot,
-make sure you justify why you chose each plot by describing what it shows.
-
-### Plot One
+### Plot One - The Rates
 ```{r echo=FALSE, Plot_One}
+
+p1 <- ggplot(data = sub_data, aes(sub_data$BorrowerRate)) + 
+        geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+        labs(title = "Histogram - Borrower Rate", x = "Borrower Rate (in %)", y = "Frequency") 
+
+p2 <- ggplot(data = sub_data, aes(sub_data$BorrowerAPR)) + 
+        geom_histogram(col = "blue", bins = 50, alpha = 0.8, aes(fill = ..count..)) +   
+        labs(title = "Histogram - Borrower APR", x = "Borrower APR (in %)", y = "Frequency")
+
+grid.arrange(p1, p2, ncol = 2)
 
 ```
 
 ### Description One
 
+> The rates were always an interesting factor since they seemed to have 'control' over other features such as ProsperScore. 
 
-### Plot Two
+> A little research on Prosper's own website revealed it normal for the Borrower Rate and the Borrower APR to follow similar distributions since the APR is nothing but the Rate plus any fees charged to originate the loan.
+
+> These two plots reveal the close relationships between the two rates.
+
+### Plot Two - The Impact of Occupation
 ```{r echo=FALSE, Plot_Two}
+
+ggplot(data = sub_data, aes(sub_data$MonthlyLoanPayment, sub_data$Occupation)) + 
+  geom_point(col = 'darkgreen') +
+  labs(title = "Occupations vs MonthlyLoanPayment", x = "MonthlyLoanPayment (in $)", y = "Occupations") 
 
 ```
 
 ### Description Two
 
+> This plot reflects the differences in Occupations and how it affects a person's MonthlyLoanPayment options.
 
-### Plot Three
+> We can see how certain professions make smaller payments whereas others make much larger payments and we can see a clear divide between certified professionals (e.g. Accountants) versus people who probably don't hold a bachelor's degree yet (e.g. Students).
+
+### Plot Three - To Own or Not To Own
 ```{r echo=FALSE, Plot_Three}
+
+ggplot(data = sub_data, aes(sub_data$LoanOriginalAmount, sub_data$StatedMonthlyIncome, 
+  color = IsBorrowerHomeowner)) + 
+  geom_point(alpha = 0.5) +
+  coord_cartesian(ylim = c(0, 200000)) +
+  labs(title = "LoanOriginalAmount vs StatedMonthlyIncome vs IsBorrowerHomeowner", x = "LoanOriginalAmount (in $)", y        = "StatedMonthlyIncome (in $)") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
 
 ```
 
 ### Description Three
 
+> This final plot emphasizes the need for owning a house. House ownership seems to be a defining factor for individuals taking loans.
+
+> We can see how home ownership helps us identify monthly income and original loan amount (e.g. home owners tend to have higher monthly income and tend to take more loans, perhaps the latter being a consequence of the former). 
+
 ------
 
-# Reflection
+## Reflection
 
-> **Tip**: Here's the final step! Reflect on the exploration you performed and
-the insights you found. What were some of the struggles that you went through?
-What went well? What was surprising? Make sure you include an insight into
-future work that could be done with the dataset.
+> As final thoughts, I can reflect upon the sheer enormousness of the dataset that I had started the investigation on - from 113937x81 to reducing that and narrowing down to 113937x12. Of these 12 key features, it was soon important to explore what role ProsperScore and LoanStatus played throughout the myriad properties/features of the dataset.
 
-> **Tip**: Don't forget to remove this, and the other **Tip** sections before
-saving your final work and knitting the final report!
+> Prosper was an excellent candidate for EDA with numerous features to explore. I believe the dataset is a great option for future modeling purposes (e.g. loan default classification). Additionally, the website itself had some interesting information that helped with this analysis (e.g. APR versus Borrower Rate).
+
+> The major struggles throughout this exploration were the choice of features and particularly to not jump to conclusion after looking at only a fragment of the data. It is, indeed, important to have the bigger picture. The choices of graphs in this exercise were made keeping in mind simplicity and, therefore, there have been no fancy charts or illustrations. 
+
+> In the words of John Tukey: "Exploratory data analysis can never be the whole story, but nothing else can serve as the foundation stone."
+
+## References
+
+> 1. Prosper Website - https://www.prosper.com/
+
+> 2. Prosper Help - https://prosper.zendesk.com/hc/en-us/articles/208500686-What-is-the-difference-between-Interest-Rate-and-APR-
+
+> 3. Investopedia - https://www.investopedia.com/ask/answers/100314/what-difference-between-interest-rate-and-annual-percentage-rate-apr.asp
+
+> 4. Special thanks to Joy Lal Chattaraj - https://github.com/Joylal4896
